@@ -1,0 +1,22 @@
+<form #fm='ngForm' (ngSubmit)='onSubmit(fm.value)'>
+  <h4>Three equal columns</h4>
+  <fieldset>
+    <div class="row">
+      <div class="form-group col-xs-12 col-md-6">
+        <label for="firstName">first name</label>
+        <input id="firstName" ngModel name='firstName' type="text" class="form-control">
+      </div>
+      <div class="form-group col-xs-12 col-md-6">
+        <label for="lastName">last name</label>
+        <input id="lastName" ngModel name='lastName' type="text" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-12 col-md-6">
+        <label for="email">Email address</label>
+        <input id="email" ngModel name='email' type="email" class="form-control">
+      </div>
+    </div>
+  </fieldset>
+  <button type='submit'>add</button>
+</form>
