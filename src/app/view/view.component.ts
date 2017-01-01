@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Subject';
 import { Component, OnInit } from '@angular/core';
 // import { AppService } from '../app.service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
@@ -16,7 +17,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 //   }];
 //   ngOnInit() {
 //     this.getUsers()
-    
+
 //     // this.service.getUsers().subscribe((response:Response) => console.log(response))
 //   }
 //   getUsers(){
@@ -35,9 +36,22 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 export class ViewComponent implements OnInit {
   constructor(private af: AngularFire) { }
-  items:FirebaseListObservable<any>;
+  items: FirebaseListObservable<any>;
+  subject: Subject<any>;
   ngOnInit() {
-    this.items = this.af.database.list('/items');
+    this.subject = new Subject();
+    this.items = this.af.database.list('/users', {
+      query: {
+        equalTo: this.subject,
+      }
+    });
+
+    this.searchBy('');
+
     console.log(this.items);
+  }
+  searchBy(someTxt) {
+    this.subject.next(someTxt);
+    this.items.subscribe(items => console.log('items', items));
   }
 }
